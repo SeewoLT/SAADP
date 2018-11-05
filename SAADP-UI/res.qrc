@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/new">
+        <file>Image/AI.jpg</file>
+        <file>Image/carton.jpg</file>
+        <file>Image/city.jpg</file>
+        <file>Image/design.jpg</file>
+        <file>Image/dog.jpg</file>
+        <file>Image/food.jpg</file>
+        <file>Image/movie.jpg</file>
+        <file>Image/xing.jpg</file>
+        <file>Image/bg.png</file>
+        <file>Image/newxin.png</file>
+        <file>Image/xin.png</file>
+        <file>Image/new.png</file>
+        <file>Image/new1.png</file>
+    </qresource>
+</RCC>
