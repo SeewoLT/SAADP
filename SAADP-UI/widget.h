@@ -5,11 +5,19 @@
 #include <QString>
 #include <QScrollArea>
 #include <QPushButton>
+#include <vector>
+using namespace std;
+
+struct article
+	{
+		QString title;
+		QString pic_url;
+		QString content;
+	};
 
 namespace Ui {
-class Widget;
+	class Widget;
 }
-
 class Widget : public QWidget
 {
     Q_OBJECT
@@ -17,7 +25,9 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     int count=0;
-    QString topcolor,btmcolor;
+	
+	vector<struct article>passage;
+	article temp;
     ~Widget();
 
 private slots:

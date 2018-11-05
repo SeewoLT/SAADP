@@ -15,7 +15,7 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
-    setFixedSize(680, 780);
+	setFixedSize(680, 780);
 
     QTimer *time = new QTimer(this);
     connect(time, &QTimer::timeout, this, &Widget::Renew);
@@ -222,7 +222,7 @@ Widget::Widget(QWidget *parent) :
     QWidget *midWidget = new QWidget(ui->midScrollArea);
     ui->midScrollArea->setWidget(midWidget);
     int midwidth = midBtnNum*150 + (midBtnNum-1)*20;
-    midWidget->setMinimumSize(midwidth,170);
+    midWidget->setMinimumSize(midwidth,150);
     midWidget->setMouseTracking(true); //激活鼠标跟踪
 
     QString midurl[13] = {"QPushButton{border-image: url(:/new/Image/movie.jpg)}",
@@ -264,7 +264,7 @@ Widget::Widget(QWidget *parent) :
     QWidget *btmWidget = new QWidget(ui->btmScrollArea);
     ui->btmScrollArea->setWidget(btmWidget);
     int btmwidth = btmBtnNum*150 + (btmBtnNum-1)*20;
-    btmWidget->setMinimumSize(btmwidth,170);
+    btmWidget->setMinimumSize(btmwidth,150);
     btmWidget->setMouseTracking(true); //激活鼠标跟踪
 
     QString btmurl[3] = {"QPushButton{border-image: url(:/new/Image/movie.jpg)}",
@@ -332,8 +332,10 @@ void Widget::showTopArticle(int i)
     ui->btmWidget->setStyleSheet("border-image:url(:/new/Image/bg.png); background-color:#f7d8a7");
     ui->topWidget->setStyleSheet("background-color:#f8bd5f");
 
-    QString s = "这是文章" + QString::number(i + 1);
-    ui->articlename->setText(s);
+    //QString s = "这是文章" + QString::number(i + 1);
+    ui->articlename->setText(passage[i].title);
+	ui->articleImg->setText(passage[i].pic_url);
+	ui->contentView->setText(passage[i].content);
 
     ui->stackedWidget->setCurrentIndex(1);
 }
