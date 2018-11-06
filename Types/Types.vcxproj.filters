@@ -9,6 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{bcbe5039-880f-44fa-850a-cc6c52e1cbba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PassageData.cpp">
@@ -28,5 +31,10 @@
     <ClInclude Include="PassageDataSplDcps.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="PassageData.idl">
+      <Filter>资源文件</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

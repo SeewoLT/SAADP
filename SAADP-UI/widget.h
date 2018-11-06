@@ -13,6 +13,7 @@ struct article
 		QString title;
 		QString pic_url;
 		QString content;
+		bool isLike;
 	};
 
 namespace Ui {
@@ -25,9 +26,13 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     int count=0;
+	int passagenum=0;
 	
 	vector<struct article>passage;
+	vector<struct article>recentview;
+
 	article temp;
+
     ~Widget();
 
 private slots:

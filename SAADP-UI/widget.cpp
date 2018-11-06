@@ -10,6 +10,11 @@
 #include <QString>
 #include <QTimer>
 
+#include <iostream>
+
+#include "common/example_utilities.h"
+#include "..\Implement\Entities.cpp"
+
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
@@ -331,13 +336,28 @@ void Widget::showTopArticle(int i)
 {
     ui->btmWidget->setStyleSheet("border-image:url(:/new/Image/bg.png); background-color:#f7d8a7");
     ui->topWidget->setStyleSheet("background-color:#f8bd5f");
+	if (passage.size() > i)
+	{
+		//QString s = "这是文章" + QString::number(i + 1);
+		ui->articlename->setText(passage[i].title);
+		//ui->articleImg->setText(ssage[i].pic_url);
+		QImage newimg(passage[i].pic_url);
+		ui->articleImg->setPixmap(QPixmap::fromImage(newimg));
+		ui->contentView->setText(passage[i].content);
+		recentview.insert(recentview.begin(), passage[i]);
 
-    //QString s = "这是文章" + QString::number(i + 1);
-    ui->articlename->setText(passage[i].title);
-	ui->articleImg->setText(passage[i].pic_url);
-	ui->contentView->setText(passage[i].content);
+	}
+	else
+	{
+		ui->articlename->setText("This is a title!");
+		QImage newing("/new/Image/bg.png");
+		ui->articleImg->setPixmap(QPixmap::fromImage(newing));
+		ui->contentView->setText("This is the content!");
+
+	}
 
     ui->stackedWidget->setCurrentIndex(1);
+
 }
 
 void Widget::showMidArticle(int i)
@@ -345,8 +365,10 @@ void Widget::showMidArticle(int i)
     ui->btmWidget->setStyleSheet("border-image:url(:/new/Image/bg.png); background-color:#bacaca");
     ui->topWidget->setStyleSheet("background-color:#74b4b3");
 
-    QString s = "这是文章" + QString::number(i + 1);
-    ui->articlename->setText(s);
+	ui->articlename->setText(recentview[i].title);
+	QImage newimg(recentview[i].pic_url);
+	ui->articleImg->setPixmap(QPixmap::fromImage(newimg));
+	ui->contentView->setText(recentview[i].content);
 
     ui->stackedWidget->setCurrentIndex(1);
 }
@@ -385,12 +407,14 @@ void Widget::on_likeButton_5_clicked()
 //time的槽函数,随着时间的刷新判断是否有新的文章接收进来
 void Widget::Renew()
 {
-    if(1)//如果接收到新的文章
+    if(passagenum!=passage.size())//如果接收到新的文章
         ui->renew->setStyleSheet("QPushButton{border-image:url(:/new/Image/new1.png);}");
 }
 
 //点击刷新按钮之后红点消失
 void Widget::on_renew_clicked()
 {
+
     ui->renew->setStyleSheet("QPushButton{border-image:url(:/new/Image/new.png);}");
+	passagenum = passage.size();
 }
