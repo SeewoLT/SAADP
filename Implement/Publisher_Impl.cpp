@@ -73,7 +73,7 @@ namespace Passage {
 				msg.content() = ss.str();
 				/*!!!!!!!!!!!!*/
 				msg.userID() = user.userID();
-				msg.pic_url() = "Pic URL";
+				msg.pic_url() = "C:\\Users\\91970\\Desktop\\dog.jpg";
 				/*!!!!!!!!!!!!*/
 				e.chatMessageWriter.write(msg, userHandle);
 				std::cout << "Writing message: \"" << msg.content() << "\"" << std::endl;

@@ -96,9 +96,11 @@ void BoardThread::run()
 									//<< "\t" << message->data().pic_url() << "\t" << message->data().content() << std::endl;
 								w->temp.title = "biaoti";
 								w->temp.pic_url = QString::fromStdString(message->data().pic_url());
+								
 								w->temp.content = QString::fromStdString(message->data().content());
-								w->temp.isLike = 0;
-								w->passage.push_back(w->temp);
+								w->temp.isLike = false;
+								w->temp.inlike = false;
+								w->passage.insert(w->passage.begin(), w->temp);
 							}
 						}
 					}
