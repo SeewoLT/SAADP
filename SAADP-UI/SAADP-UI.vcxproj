@@ -67,7 +67,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\OpenSource%28VS%29\HDE\x86_64.win64\examples\include;D:\OpenSource%28VS%29\HDE\x86_64.win64\examples;D:\OpenSource%28VS%29\HDE\x86_64.win64\include\dcps\C++\SACPP;D:\OpenSource%28VS%29\HDE\x86_64.win64\include\dcps\C++\isocpp2;D:\OpenSource%28VS%29\HDE\x86_64.win64\include\sys;D:\OpenSource%28VS%29\HDE\x86_64.win64\include;.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;release;\include;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OSPL_HOME)\include;$(OSPL_HOME)\include\sys;$(OSPL_HOME)\include\dcps\C++\isocpp2;$(OSPL_HOME)\include\dcps\C++\SACPP;$(OSPL_HOME)\examples;$(OSPL_HOME)\examples\include;.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;release;\include;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -87,7 +87,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>dcpsisocpp2.lib;ddskernel.lib;Types.lib;$(QTDIR)\lib\qtmain.lib;shell32.lib;$(QTDIR)\lib\Qt5Widgets.lib;$(QTDIR)\lib\Qt5Gui.lib;$(QTDIR)\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\91970\source\repos\Board2\SAADP-UI\release;C:\Users\91970\source\repos\Board2\x64\Release;D:\OpenSource%28VS%29\HDE\x86_64.win64\lib;$(QTDIR)\lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.6.11-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)SAADP-UI\release;$(SolutionDir)x64\Release;$(OSPL_HOME)\lib;$(QTDIR)\lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.6.11-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -110,7 +110,7 @@
       <QTDIR>$(QTDIR)</QTDIR>
       <InputFile>%(FullPath)</InputFile>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
-      <IncludePath>D:\OpenSource%28VS%29\HDE\x86_64.win64\examples\include;D:\OpenSource%28VS%29\HDE\x86_64.win64\examples;D:\OpenSource%28VS%29\HDE\x86_64.win64\include\dcps\C++\SACPP;D:\OpenSource%28VS%29\HDE\x86_64.win64\include\dcps\C++\isocpp2;D:\OpenSource%28VS%29\HDE\x86_64.win64\include\sys;D:\OpenSource%28VS%29\HDE\x86_64.win64\include;.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;release;\include;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</IncludePath>
+      <IncludePath>$(OSPL_HOME)\include;$(OSPL_HOME)\include\sys;$(OSPL_HOME)\include\dcps\C++\isocpp2;$(OSPL_HOME)\include\dcps\C++\SACPP;$(OSPL_HOME)\examples;$(OSPL_HOME)\examples\include;.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;release;\include;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</IncludePath>
       <Define>UNICODE;_UNICODE;WIN32;WIN64;_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB</Define>
       <CompilerFlavor>msvc</CompilerFlavor>
       <Include>./$(Configuration)/moc_predefs.h</Include>

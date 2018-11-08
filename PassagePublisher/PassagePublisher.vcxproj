@@ -78,12 +78,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\OpenSource%28VS%29\HDE\x86_64.win64\include;D:\OpenSource%28VS%29\HDE\x86_64.win64\include\sys;D:\OpenSource%28VS%29\HDE\x86_64.win64\include\dcps\C++\isocpp2;D:\OpenSource%28VS%29\HDE\x86_64.win64\include\dcps\C++\SACPP;D:\OpenSource%28VS%29\HDE\x86_64.win64\examples;D:\OpenSource%28VS%29\HDE\x86_64.win64\examples\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OSPL_HOME)\include;$(OSPL_HOME)\include\sys;$(OSPL_HOME)\include\dcps\C++\isocpp2;$(OSPL_HOME)\include\dcps\C++\SACPP;$(OSPL_HOME)\examples;$(OSPL_HOME)\examples\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\91970\source\repos\Board2\x64\Release;D:\OpenSource%28VS%29\HDE\x86_64.win64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)x64\Release;$(OSPL_HOME)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>dcpsisocpp2.lib;Types.lib;Implement.lib;ddskernel.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
