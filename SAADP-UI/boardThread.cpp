@@ -94,13 +94,13 @@ void BoardThread::run()
 							{
 								//std::cout << user->data().name() << ": " << "\t" << user->data().userID() << std::endl 
 									//<< "\t" << message->data().pic_url() << "\t" << message->data().content() << std::endl;
-								w->temp.title = "biaoti";
-								w->temp.pic_url = QString::fromStdString(message->data().pic_url());
+								w->tempArticle.title = "biaoti";
+								w->tempArticle.pic_url = QString::fromStdString(message->data().pic_url());
 								
-								w->temp.content = QString::fromStdString(message->data().content());
-								w->temp.isLike = false;
-								w->temp.inlike = false;
-								w->passage.insert(w->passage.begin(), w->temp);
+								w->tempArticle.content = QString::fromStdString(message->data().content());
+								w->tempArticle.isLike = false;
+								w->tempArticle.inlike = false;
+								w->passages.insert(w->passages.begin(), w->tempArticle);
 							}
 						}
 					}

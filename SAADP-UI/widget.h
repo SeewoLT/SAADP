@@ -8,7 +8,7 @@
 #include <vector>
 using namespace std;
 
-struct article
+struct Article
 	{
 		QString title;
 		QString pic_url;
@@ -26,15 +26,15 @@ class Widget : public QWidget
 
 public:
     explicit Widget(QWidget *parent = 0);
-    int count=0;
-	int passagenum=0;
+    int count = 0;
+	int passagenum = 0;
 	int nowpassage[3] = { 0 };
 
-	vector<struct article>passage;
-	vector<struct article>recentview;
-	vector<struct article>likepassage;
+	vector<struct Article>passages;
+	vector<struct Article>recentViews;
+	vector<struct Article>likedPassages;
 
-	article temp;
+	Article tempArticle;
 	void AddArticle();
 
 	QWidget *midWidget, *btmWidget;

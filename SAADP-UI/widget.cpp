@@ -270,9 +270,9 @@ void Widget::mouseMoveEvent(QMouseEvent *ev)
 
 void Widget::AddArticle()
 {
-	int topBtnNum = passage.size(); //记录top中按钮个数
-	int midBtnNum = recentview.size(); //记录mid中按钮个数
-	int btmBtnNum = likepassage.size(); //记录btm中按钮的个数
+	int topBtnNum = passages.size(); //记录top中按钮个数
+	int midBtnNum = recentViews.size(); //记录mid中按钮个数
+	int btmBtnNum = likedPassages.size(); //记录btm中按钮的个数
 	
 	
 	//上部Widget,以topScrollArea为父窗口
@@ -311,7 +311,7 @@ void Widget::AddArticle()
 	{
 		midArticleBtn[i].setGeometry(170 * i, 0, 150, 150);
 		midArticleBtn[i].setParent(midWidget);
-		QIcon icon(recentview[i].pic_url);
+		QIcon icon(recentViews[i].pic_url);
 		midArticleBtn[i].setIcon(icon);
 		midArticleBtn[i].setIconSize(midArticleBtn[i].rect().size());
 		midArticleBtn[i].setMouseTracking(true); //激活鼠标跟踪
@@ -330,7 +330,7 @@ void Widget::AddArticle()
 	{
 		btmArticleBtn[i].setGeometry(170 * i, 0, 150, 150);
 		btmArticleBtn[i].setParent(btmWidget);
-		QIcon icon(likepassage[i].pic_url);
+		QIcon icon(likedPassages[i].pic_url);
 		btmArticleBtn[i].setIcon(icon);
 		btmArticleBtn[i].setIconSize(btmArticleBtn[i].rect().size());
 		btmWidget->setMouseTracking(true); //激活鼠标跟踪
@@ -345,12 +345,12 @@ void Widget::showTopArticle(int i)
     ui->btmWidget->setStyleSheet("border-image:url(:/new/Image/bg.png); background-color:#f7d8a7");
     ui->topWidget->setStyleSheet("background-color:#f8bd5f");
 
-	ui->articlename->setText(passage[i].title);
-	QImage newimg(passage[i].pic_url);
+	ui->articlename->setText(passages[i].title);
+	QImage newimg(passages[i].pic_url);
 	ui->articleImg->setPixmap(QPixmap::fromImage(newimg));
-	ui->contentView->setText(passage[i].content);
-	recentview.insert(recentview.begin(), passage[i]);
-	if(passage[i].isLike) ui->likeButton_5->setStyleSheet("QPushButton{border-image:url(:/new/Image/newxin.png);}");
+	ui->contentView->setText(passages[i].content);
+	recentViews.insert(recentViews.begin(), passages[i]);
+	if(passages[i].isLike) ui->likeButton_5->setStyleSheet("QPushButton{border-image:url(:/new/Image/newxin.png);}");
 	else ui->likeButton_5->setStyleSheet("QPushButton{border-image:url(:/new/Image/xin.png);}");
 	nowpassage[0] = i+1;
     ui->stackedWidget->setCurrentIndex(1);
@@ -361,11 +361,11 @@ void Widget::showMidArticle(int i)
     ui->btmWidget->setStyleSheet("border-image:url(:/new/Image/bg.png); background-color:#bacaca");
     ui->topWidget->setStyleSheet("background-color:#74b4b3");
 
-	ui->articlename->setText(recentview[i].title);
-	QImage newimg(recentview[i].pic_url);
+	ui->articlename->setText(recentViews[i].title);
+	QImage newimg(recentViews[i].pic_url);
 	ui->articleImg->setPixmap(QPixmap::fromImage(newimg));
-	ui->contentView->setText(recentview[i].content);
-	if(recentview[i].isLike)
+	ui->contentView->setText(recentViews[i].content);
+	if(recentViews[i].isLike)
 		ui->likeButton_5->setStyleSheet("QPushButton{border-image:url(:/new/Image/newxin.png);}");
 	else ui->likeButton_5->setStyleSheet("QPushButton{border-image:url(:/new/Image/xin.png);}");
 	nowpassage[1] = i + 1;
@@ -377,10 +377,10 @@ void Widget::showBtmArticle(int i)
     ui->btmWidget->setStyleSheet("border-image:url(:/new/Image/bg.png); background-color:#c6c8cb");
     ui->topWidget->setStyleSheet("background-color:#8391a3");
 
-    ui->articlename->setText(likepassage[i].title);
-	QImage newimg(likepassage[i].pic_url);
+    ui->articlename->setText(likedPassages[i].title);
+	QImage newimg(likedPassages[i].pic_url);
 	ui->articleImg->setPixmap(QPixmap::fromImage(newimg));
-	ui->contentView->setText(likepassage[i].content);
+	ui->contentView->setText(likedPassages[i].content);
 	ui->likeButton_5->setStyleSheet("QPushButton{border-image:url(:/new/Image/newxin.png);}");
 	nowpassage[2] = i + 1;
 
@@ -393,9 +393,9 @@ void Widget::on_backButton_5_clicked()
     ui->topScrollArea->horizontalScrollBar()->setValue(0);
     ui->midScrollArea->horizontalScrollBar()->setValue(0);
     ui->btmScrollArea->horizontalScrollBar()->setValue(0);
-	if (passage[nowpassage[0]].isLike&&!passage[nowpassage[0]].inlike) {
-		likepassage.insert(likepassage.begin(), passage[nowpassage[0]]);
-		passage[nowpassage[0]].inlike = true;
+	if (passages[nowpassage[0]].isLike&&!passages[nowpassage[0]].inlike) {
+		likedPassages.insert(likedPassages.begin(), passages[nowpassage[0]]);
+		passages[nowpassage[0]].inlike = true;
 	}
 	count = 0;
 	AddArticle();
@@ -407,31 +407,31 @@ void Widget::on_likeButton_5_clicked()
 	int now;
 	if (!nowpassage[0]) {
 		now = nowpassage[0] - 1;
-		if (passage[now].isLike) count = 1;
+		if (passages[now].isLike) count = 1;
 	}
 	else if (!nowpassage[1]) {
 		now = nowpassage[1] - 1;
-		if (recentview[now].isLike) count = 1;
+		if (recentViews[now].isLike) count = 1;
 	}
 	else if (!nowpassage[2]) {
 		now = nowpassage[2] - 1;
-		if (likepassage[now].isLike) count = 1;
+		if (likedPassages[now].isLike) count = 1;
 	}
 	count++;
     if(count%2==1){
         ui->likeButton_5->setStyleSheet("QPushButton{border-image:url(:/new/Image/newxin.png);}");
-		passage[now].isLike = true;
+		passages[now].isLike = true;
     }
     else{
         ui->likeButton_5->setStyleSheet("QPushButton{border-image:url(:/new/Image/xin.png);}");
-		passage[now].isLike = false;
+		passages[now].isLike = false;
     }
 }
 
 //time的槽函数,随着时间的刷新判断是否有新的文章接收进来
 void Widget::Renew()
 {
-    if(passagenum!=passage.size())//如果接收到新的文章
+    if(passagenum!=passages.size())//如果接收到新的文章
         ui->renew->setStyleSheet("QPushButton{border-image:url(:/new/Image/new1.png);}");
 }
 
@@ -439,7 +439,7 @@ void Widget::Renew()
 void Widget::on_renew_clicked()
 {
     ui->renew->setStyleSheet("QPushButton{border-image:url(:/new/Image/new.png);}");
-	passagenum = passage.size();
+	passagenum = passages.size();
 	AddArticle();
-	qDebug() << passage[0].pic_url;
+	qDebug() << passages[0].pic_url;
 }
