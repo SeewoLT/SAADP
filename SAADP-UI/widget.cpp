@@ -372,7 +372,7 @@ void Widget::showTopArticle(int i)
 	
 	/*QString newString;
 	newString = newString.fromLocal8Bit("");*/
-	ui->articlename->setText(passages[i].title.toLocal8Bit());
+	ui->articlename->setText(passages[i].title);
 	QImage newimg(passages[i].pic_url);
 	ui->articleImg->setPixmap(QPixmap::fromImage(newimg));
 	ui->contentView->setText(passages[i].content);
