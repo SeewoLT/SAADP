@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'widget.ui'
 **
-** Created by: Qt User Interface Compiler version 5.11.1
+** Created by: Qt User Interface Compiler version 5.11.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -189,7 +189,7 @@ public:
 
     void retranslateUi(QWidget *Widget)
     {
-        Widget->setWindowTitle(QApplication::translate("Widget", "Widget", nullptr));
+        Widget->setWindowTitle(QApplication::translate("Widget", "LookBoard", nullptr));
         label->setText(QString());
         topLabel->setText(QApplication::translate("Widget", "\347\234\213\346\235\277", nullptr));
         label_4->setText(QString());
