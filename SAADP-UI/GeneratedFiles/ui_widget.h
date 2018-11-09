@@ -179,7 +179,7 @@ public:
         contentView->setFont(font2);
         articleImg = new QLabel(articlepage);
         articleImg->setObjectName(QStringLiteral("articleImg"));
-        articleImg->setGeometry(QRect(130, 130, 431, 221));
+        articleImg->setGeometry(QRect(170, 130, 350, 233));
         stackedWidget->addWidget(articlepage);
 
         retranslateUi(Widget);

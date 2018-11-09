@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Widget</class>
  <widget class="QWidget" name="Widget">
@@ -377,10 +377,10 @@ p, li { white-space: pre-wrap; }
     <widget class="QLabel" name="articleImg">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>170</x>
        <y>130</y>
-       <width>431</width>
-       <height>221</height>
+       <width>350</width>
+       <height>233</height>
       </rect>
      </property>
      <property name="text">

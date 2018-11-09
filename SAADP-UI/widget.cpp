@@ -298,7 +298,7 @@ void Widget::AddArticle()
 	//top部分增加按钮
 	int topwidth = topBtnNum * 270 + (topBtnNum - 1) * 40;
 	topWidget->setMinimumSize(topwidth, 180);
-	
+
 	//定义多个按钮
 	QSignalMapper *topSignalMapper = new QSignalMapper;
 	for (int i = 0; i < topBtnNum; i++)
@@ -321,6 +321,8 @@ void Widget::AddArticle()
 	}
 	connect(topSignalMapper, SIGNAL(mapped(int)), this, SLOT(showTopArticle(int)));
 
+
+
 	//mid部分增加按钮
 	int midwidth = midBtnNum * 150 + (midBtnNum - 1) * 20;
 	midWidget->setMinimumSize(midwidth, 150);
@@ -332,7 +334,11 @@ void Widget::AddArticle()
 
 		midArticleBtn[i].setGeometry(170 * i, 0, 150, 150);
 
-		QIcon icon(recentViews[i].pic_url);
+		midArticleBtn[i].setStyleSheet("border-radius: 10px;");
+
+		QImage img(recentViews[i].pic_url);
+		img = img.copy(100, 100, 600, 600);
+		QIcon icon(QPixmap::fromImage(img));
 		midArticleBtn[i].setIcon(icon);
 		midArticleBtn[i].setIconSize(midArticleBtn[i].rect().size());
 
@@ -343,9 +349,12 @@ void Widget::AddArticle()
 	}
 	connect(midSignalMapper, SIGNAL(mapped(int)), this, SLOT(showMidArticle(int)));
 
+
+
 	//btm部分增加按钮
 	int btmwidth = btmBtnNum * 150 + (btmBtnNum - 1) * 20;
 	btmWidget->setMinimumSize(btmwidth, 150);
+
 	//定义多个按钮
 	QSignalMapper *btmSignalMapper = new QSignalMapper;
 	for (int i = 0; i < btmBtnNum; i++)
@@ -354,7 +363,11 @@ void Widget::AddArticle()
 
 		btmArticleBtn[i].setGeometry(170 * i, 0, 150, 150);
 
-		QIcon icon(likedPassages[i].pic_url);
+		btmArticleBtn[i].setStyleSheet("border-radius: 10px;");
+
+		QImage img(likedPassages[i].pic_url);
+		img = img.copy(100, 100, 600, 600);
+		QIcon icon(QPixmap::fromImage(img));
 		btmArticleBtn[i].setIcon(icon);
 		btmArticleBtn[i].setIconSize(btmArticleBtn[i].rect().size());
 
@@ -372,9 +385,16 @@ void Widget::showTopArticle(int i)
 	
 	/*QString newString;
 	newString = newString.fromLocal8Bit("");*/
-	ui->articlename->setText(passages[i].title.toLocal8Bit());
-	QImage newimg(passages[i].pic_url);
-	ui->articleImg->setPixmap(QPixmap::fromImage(newimg));
+	ui->articlename->setText(passages[i].title);
+
+	QImage newimg;
+	newimg.load(passages[i].pic_url);
+	QPixmap pixmap = QPixmap::fromImage(newimg).scaled(ui->articleImg->width(),
+		ui->articleImg->height(),
+		Qt::KeepAspectRatio,
+		Qt::SmoothTransformation);
+	ui->articleImg->setPixmap(pixmap);
+
 	ui->contentView->setText(passages[i].content);
 
 	//将文章插入到<最近阅读>中
@@ -397,8 +417,14 @@ void Widget::showMidArticle(int i)
     ui->topWidget->setStyleSheet("background-color:#74b4b3");
 
 	ui->articlename->setText(recentViews[i].title);
+
 	QImage newimg(recentViews[i].pic_url);
-	ui->articleImg->setPixmap(QPixmap::fromImage(newimg));
+	QPixmap pixmap = QPixmap::fromImage(newimg).scaled(ui->articleImg->width(),
+		ui->articleImg->height(),
+		Qt::KeepAspectRatio,
+		Qt::SmoothTransformation);
+	ui->articleImg->setPixmap(pixmap);
+
 	ui->contentView->setText(recentViews[i].content);
 	if(recentViews[i].isLike)
 		ui->likeButton_5->setStyleSheet("QPushButton{border-image:url(:/new/Image/newxin.png);}");
@@ -430,9 +456,9 @@ void Widget::on_backButton_5_clicked()
     ui->midScrollArea->horizontalScrollBar()->setValue(0);
     ui->btmScrollArea->horizontalScrollBar()->setValue(0);
 
-	if (passages[nowpassage[0]].isLike&&!passages[nowpassage[0]].inlike) {
-		likedPassages.insert(likedPassages.begin(), passages[nowpassage[0]]);
-		passages[nowpassage[0]].inlike = true;
+	if (nowpassage[0]&&passages[nowpassage[0]-1].isLike&&!passages[nowpassage[0]-1].inlike) {
+		likedPassages.insert(likedPassages.begin(), passages[nowpassage[0]-1]);
+		passages[nowpassage[0]-1].inlike = true;
 	}
 	count = 0;
 
@@ -441,23 +467,21 @@ void Widget::on_backButton_5_clicked()
 
 	AddArticle(); //添加文章按钮
 
-	
-
     ui->stackedWidget->setCurrentIndex(0);
 }
 
 void Widget::on_likeButton_5_clicked()
 {
 	int now;
-	if (!nowpassage[0]) {
+	if (nowpassage[0]) {
 		now = nowpassage[0] - 1;
 		if (passages[now].isLike) count = 1;
 	}
-	else if (!nowpassage[1]) {
+	else if (nowpassage[1]) {
 		now = nowpassage[1] - 1;
 		if (recentViews[now].isLike) count = 1;
 	}
-	else if (!nowpassage[2]) {
+	else if (nowpassage[2]) {
 		now = nowpassage[2] - 1;
 		if (likedPassages[now].isLike) count = 1;
 	}
