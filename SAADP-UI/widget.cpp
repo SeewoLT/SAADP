@@ -1,3 +1,4 @@
+#pragma execution_character_set("utf-8");
 #include "widget.h"
 #include "ui_widget.h"
 #include <QDesktopWidget>
@@ -176,7 +177,17 @@ Widget::Widget(QWidget *parent) :
     //设置滚动条样式
     ui->topScrollArea->horizontalScrollBar()->setStyleSheet(scrollstyle);
 
-    
+	//上部Widget,以topScrollArea为父窗口
+	topWidget = new QWidget(ui->topScrollArea);
+	ui->topScrollArea->setWidget(topWidget);
+	topWidget->setMouseTracking(true); //激活鼠标跟踪
+
+	topArticleBtn = new QPushButton[30];
+	for (int i = 0; i < 30; i++)
+	{
+		topArticleBtn[i].setParent(topWidget);
+		topArticleBtn[i].hide();
+	}
 }
 
 
@@ -199,6 +210,13 @@ Widget::Widget(QWidget *parent) :
     midWidget = new QWidget(ui->midScrollArea);
     ui->midScrollArea->setWidget(midWidget);
     midWidget->setMouseTracking(true); //激活鼠标跟踪
+
+	midArticleBtn = new QPushButton[30];
+	for (int i = 0; i < 30; i++)
+	{
+		midArticleBtn[i].setParent(midWidget);
+		midArticleBtn[i].hide();
+	}
 }
 
 
@@ -222,9 +240,12 @@ Widget::Widget(QWidget *parent) :
     ui->btmScrollArea->setWidget(btmWidget);
     btmWidget->setMouseTracking(true); //激活鼠标跟踪
 
-    QString btmurl[3] = {"QPushButton{border-image: url(:/new/Image/movie.jpg)}",
-                          "QPushButton{border-image: url(:/new/Image/design.jpg)}",
-                          "QPushButton{border-image: url(:/new/Image/xing.jpg)}"};
+	btmArticleBtn = new QPushButton[30];
+	for (int i = 0; i < 30; i++)
+	{
+		btmArticleBtn[i].setParent(btmWidget);
+		btmArticleBtn[i].hide();
+	}
 }
 
 }
@@ -274,28 +295,27 @@ void Widget::AddArticle()
 	int midBtnNum = recentViews.size(); //记录mid中按钮个数
 	int btmBtnNum = likedPassages.size(); //记录btm中按钮的个数
 	
-	
-	//上部Widget,以topScrollArea为父窗口
-	QWidget *topWidget = new QWidget(ui->topScrollArea);
-	ui->topScrollArea->setWidget(topWidget);
-	topWidget->setMouseTracking(true); //激活鼠标跟踪
-
 	//top部分增加按钮
 	int topwidth = topBtnNum * 270 + (topBtnNum - 1) * 40;
 	topWidget->setMinimumSize(topwidth, 180);
 	
 	//定义多个按钮
 	QSignalMapper *topSignalMapper = new QSignalMapper;
-	QPushButton *topArticleBtn = new QPushButton[topBtnNum];
 	for (int i = 0; i < topBtnNum; i++)
 	{
-		topArticleBtn[i].setParent(topWidget);
+		topArticleBtn[i].show(); //显示按钮
+
+		//设置大小和位置
 		topArticleBtn[i].setGeometry(310 * i, 0, 270, 180);
-		/*QIcon icon("C:\\Users\\91970\\Desktop\\dog.jpg");
+
+		//给按钮添加图片
+		QIcon icon(passages[i].pic_url);
 		topArticleBtn[i].setIcon(icon);
-		topArticleBtn[i].setIconSize(topArticleBtn[i].rect().size());*/
-		topArticleBtn[i].setStyleSheet("background-color: black;");
+		topArticleBtn[i].setIconSize(topArticleBtn[i].rect().size());
+
 		topArticleBtn[i].setMouseTracking(true); //激活鼠标跟踪
+
+		//连接槽函数
 		topSignalMapper->setMapping(&topArticleBtn[i], i);
 		connect(&topArticleBtn[i], SIGNAL(clicked()), topSignalMapper, SLOT(map()));
 	}
@@ -306,15 +326,18 @@ void Widget::AddArticle()
 	midWidget->setMinimumSize(midwidth, 150);
 	//定义多个按钮
 	QSignalMapper *midSignalMapper = new QSignalMapper;
-	QPushButton *midArticleBtn = new QPushButton[midBtnNum];
 	for (int i = 0; i < midBtnNum; i++)
 	{
+		midArticleBtn[i].show(); //显示按钮
+
 		midArticleBtn[i].setGeometry(170 * i, 0, 150, 150);
-		midArticleBtn[i].setParent(midWidget);
+
 		QIcon icon(recentViews[i].pic_url);
 		midArticleBtn[i].setIcon(icon);
 		midArticleBtn[i].setIconSize(midArticleBtn[i].rect().size());
+
 		midArticleBtn[i].setMouseTracking(true); //激活鼠标跟踪
+
 		midSignalMapper->setMapping(&midArticleBtn[i], i);
 		connect(&midArticleBtn[i], SIGNAL(clicked()), midSignalMapper, SLOT(map()));
 	}
@@ -325,14 +348,16 @@ void Widget::AddArticle()
 	btmWidget->setMinimumSize(btmwidth, 150);
 	//定义多个按钮
 	QSignalMapper *btmSignalMapper = new QSignalMapper;
-	QPushButton *btmArticleBtn = new QPushButton[btmBtnNum];
 	for (int i = 0; i < btmBtnNum; i++)
 	{
+		btmArticleBtn[i].show(); //显示按钮
+
 		btmArticleBtn[i].setGeometry(170 * i, 0, 150, 150);
-		btmArticleBtn[i].setParent(btmWidget);
+
 		QIcon icon(likedPassages[i].pic_url);
 		btmArticleBtn[i].setIcon(icon);
 		btmArticleBtn[i].setIconSize(btmArticleBtn[i].rect().size());
+
 		btmWidget->setMouseTracking(true); //激活鼠标跟踪
 		btmSignalMapper->setMapping(&btmArticleBtn[i], i);
 		connect(&btmArticleBtn[i], SIGNAL(clicked()), btmSignalMapper, SLOT(map()));
@@ -344,15 +369,25 @@ void Widget::showTopArticle(int i)
 {
     ui->btmWidget->setStyleSheet("border-image:url(:/new/Image/bg.png); background-color:#f7d8a7");
     ui->topWidget->setStyleSheet("background-color:#f8bd5f");
-
-	ui->articlename->setText(passages[i].title);
+	
+	/*QString newString;
+	newString = newString.fromLocal8Bit("");*/
+	ui->articlename->setText(passages[i].title.toLocal8Bit());
 	QImage newimg(passages[i].pic_url);
 	ui->articleImg->setPixmap(QPixmap::fromImage(newimg));
 	ui->contentView->setText(passages[i].content);
-	recentViews.insert(recentViews.begin(), passages[i]);
+
+	//将文章插入到<最近阅读>中
+	if (!passages[i].inRecent)
+	{
+		recentViews.insert(recentViews.begin(), passages[i]);
+		passages[i].inRecent = true;
+	}
+
 	if(passages[i].isLike) ui->likeButton_5->setStyleSheet("QPushButton{border-image:url(:/new/Image/newxin.png);}");
 	else ui->likeButton_5->setStyleSheet("QPushButton{border-image:url(:/new/Image/xin.png);}");
-	nowpassage[0] = i+1;
+	
+	nowpassage[0] = i + 1;
     ui->stackedWidget->setCurrentIndex(1);
 }
 
@@ -368,6 +403,7 @@ void Widget::showMidArticle(int i)
 	if(recentViews[i].isLike)
 		ui->likeButton_5->setStyleSheet("QPushButton{border-image:url(:/new/Image/newxin.png);}");
 	else ui->likeButton_5->setStyleSheet("QPushButton{border-image:url(:/new/Image/xin.png);}");
+	
 	nowpassage[1] = i + 1;
     ui->stackedWidget->setCurrentIndex(1);
 }
@@ -382,8 +418,8 @@ void Widget::showBtmArticle(int i)
 	ui->articleImg->setPixmap(QPixmap::fromImage(newimg));
 	ui->contentView->setText(likedPassages[i].content);
 	ui->likeButton_5->setStyleSheet("QPushButton{border-image:url(:/new/Image/newxin.png);}");
+	
 	nowpassage[2] = i + 1;
-
     ui->stackedWidget->setCurrentIndex(1);
 }
 
@@ -393,12 +429,20 @@ void Widget::on_backButton_5_clicked()
     ui->topScrollArea->horizontalScrollBar()->setValue(0);
     ui->midScrollArea->horizontalScrollBar()->setValue(0);
     ui->btmScrollArea->horizontalScrollBar()->setValue(0);
+
 	if (passages[nowpassage[0]].isLike&&!passages[nowpassage[0]].inlike) {
 		likedPassages.insert(likedPassages.begin(), passages[nowpassage[0]]);
 		passages[nowpassage[0]].inlike = true;
 	}
 	count = 0;
-	AddArticle();
+
+	for (int pos = 0; pos < 3; pos++)
+		nowpassage[pos] = 0;
+
+	AddArticle(); //添加文章按钮
+
+	
+
     ui->stackedWidget->setCurrentIndex(0);
 }
 

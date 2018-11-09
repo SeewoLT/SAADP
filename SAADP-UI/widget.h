@@ -1,3 +1,4 @@
+#pragma execution_character_set("utf-8")
 #ifndef WIDGET_H
 #define WIDGET_H
 
@@ -15,6 +16,7 @@ struct Article
 		QString content;
 		bool isLike = false;
 		bool inlike = false;
+		bool inRecent = false;
 	};
 
 namespace Ui {
@@ -37,7 +39,8 @@ public:
 	Article tempArticle;
 	void AddArticle();
 
-	QWidget *midWidget, *btmWidget;
+	QWidget *topWidget, *midWidget, *btmWidget;
+	QPushButton *topArticleBtn, *midArticleBtn, *btmArticleBtn;
 
     ~Widget();
 

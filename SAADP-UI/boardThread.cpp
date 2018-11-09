@@ -1,3 +1,4 @@
+#pragma execution_character_set("utf-8")
 #include "boardThread.h"
 
 #include <iostream>
@@ -92,11 +93,11 @@ void BoardThread::run()
 						{
 							if (user->info().valid())
 							{
+								std::cout << "Here receive a passage!" << std::endl;
 								//std::cout << user->data().name() << ": " << "\t" << user->data().userID() << std::endl 
 									//<< "\t" << message->data().pic_url() << "\t" << message->data().content() << std::endl;
-								w->tempArticle.title = "biaoti";
+								w->tempArticle.title = QString::fromStdString(message->data().title());
 								w->tempArticle.pic_url = QString::fromStdString(message->data().pic_url());
-								
 								w->tempArticle.content = QString::fromStdString(message->data().content());
 								w->tempArticle.isLike = false;
 								w->tempArticle.inlike = false;

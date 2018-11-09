@@ -1,3 +1,4 @@
+#pragma execution_character_set("utf-8")
 #include <QApplication>
 #include <QDebug>
 
@@ -9,6 +10,7 @@ int c = 0;
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
+
     Widget w;
 	/*
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
